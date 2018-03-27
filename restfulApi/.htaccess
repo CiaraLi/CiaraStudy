@@ -1,0 +1,7 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+# 重写规则
+RewriteRule ^api$  api.php [nc,qsa]
+RewriteRule ^api/(\w+)/(\d+)$   api.php?class=$1&param=$2 [nc,qsa]
+RewriteRule ^api/(\w+)$  api.php?class=$1 [nc,qsa]
