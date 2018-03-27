@@ -44,7 +44,7 @@
  	 		'readme'=>'README.md',
  	 ), 
  	'excel'=>array(
- 	 		'path'=>'xlreader',
+ 	 		'path'=>'excel',
  	 		'title'=>'excel 读取',
  	 		'index'=>'',
  	 		'readme'=>'README.md',
