@@ -20,6 +20,7 @@
 # |--api/lib/MysqlClass.php                         mysql操作类 
 # |--api/lib/Times.php                              时间操作类
 # |--api/restful                                api服务端restful实现
+# |--api/config                                 服务端、数据库配置
 
 # |--client/                                app验证客户端调用实例
 # |--client/lib                                 类库
