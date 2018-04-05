@@ -1,10 +1,11 @@
 <?php
 
-define('DBSERVER', '127.0.0.1');
-define('DBUSER', 'root');
-define('DBPASSWORD', '');
-define('DBNAME', 'books');
-define('TBNAME', 'books');
+
+defined('DBSERVER') or define('DBSERVER', '127.0.0.1');
+defined('DBUSER') or define('DBUSER', 'test');
+defined('DBPASSWORD') or define('DBPASSWORD', 'test');
+defined('DBNAME') or define('DBNAME', 'test');
+defined('TBNAME') or define('TBNAME', 'books');
 
 define('WEBURL', 'http://localhost:83/CiaraStudy/restfulApi/');
 define('HTTP_VERSION', 'HTTP/1.1');

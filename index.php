@@ -21,8 +21,8 @@
 	</style>
 <?php
 include 'config.php';  
+include 'menu.php';  
 define('_ROOT',__DIR__);
-define('_HOST','http://local.all.com:83/CiaraStudy');
 
 $num=1;
 foreach($apps as $key=>$app){

@@ -5,9 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- define("DBHOST","127.0.0.1");
- define("DATABASE","books");
- define("USERNAME","root");
- define("PASSWORD","");
+ define("DBHOST",DBSERVER);
+ define("DATABASE",DBNAME);
+ define("USERNAME",DBUSER);
+ define("PASSWORD",DBPASSWORD);
  define("ROOT",__DIR__);
-
+  
