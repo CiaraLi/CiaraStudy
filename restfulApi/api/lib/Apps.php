@@ -3,6 +3,8 @@
 class Apps {
 
     private static $authKey = 'apikeys123';
+    private static $method = 'AES-256-CBC';
+    private static $iv = '6223463998176155';
     public static $appid = 0;
     public static $secret = 0;
     public static $app = 0;
@@ -23,12 +25,12 @@ class Apps {
     }
 
     /**
-     * 加密
+     * 加密 php7.1 以下
      * @param type $authToken
      * @param type $key
      * @return type
      */
-    static function APIAuth_encode($authToken, $key = null) {
+    static function APIAuth_encode1($authToken, $key = null) {
         empty($key) ? $key = self::$authKey : null;
         $encoded = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $authToken, MCRYPT_MODE_CBC, md5(md5($key))));
         $encoded_alter = str_replace("+", "1PLU1", $encoded);
@@ -43,7 +45,7 @@ class Apps {
      * @param type $key
      * @return type
      */
-    static function APIAuth_decode($authToken, $key = null) {
+    static function APIAuth_decode1($authToken, $key = null) {
         empty($key) ? $key = self::$authKey : null;
         $decoded_alter = str_replace("1PLU1", "+", $authToken);
         $decoded_alter = str_replace("2SLA2", "/", $decoded_alter);
@@ -51,6 +53,40 @@ class Apps {
         $decoded = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($decoded_alter), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
         return $decoded;
     }
+    
+    
+    /**
+     * 加密 php7.1 以下
+     * @param type $authToken
+     * @param type $key
+     * @return type
+     */
+    public function APIAuth_encode($authToken, $key = null) {
+        empty($key) ? $key = self::$authKey : null;
+        $encoded = openssl_encrypt(($authToken), self::method, md5($key), 0, self::iv);
+        $encoded = base64_encode($encoded);
+        $encoded_alter = str_replace("+", "1PLU1", $encoded);
+        $encoded_alter = str_replace("/", "2SLA2", $encoded_alter);
+        $encoded_alter = str_replace("=", "3EQU3", $encoded_alter);
+        return $encoded_alter;
+    }
+
+    /**
+     * 加密 php7.1以上
+     * @param type $authToken
+     * @param type $key
+     * @return type
+     */
+    public function APIAuth_decode($authToken, $key = null) {
+        empty($key) ? $key = self::$authKey : null;
+        $decoded_alter = str_replace("1PLU1", "+", $authToken);
+        $decoded_alter = str_replace("2SLA2", "/", $decoded_alter);
+        $decoded_alter = str_replace("3EQU3", "=", $decoded_alter);
+        $encodestr = base64_decode($decoded_alter);
+        $decoded = rtrim(openssl_decrypt($encodestr, self::method, md5($key), 0, self::iv));
+        return ($decoded);
+    }
+
 
     public function getAuthkey($app) {
         $chkQuery = "SELECT * from " . $this->tablename . " WHERE  " . self::ID . " =" . intval($app) . " AND " . self::STATUS . " =1 ";
